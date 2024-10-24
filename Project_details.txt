@@ -1,0 +1,65 @@
+
+
+1. About My Project:
+	I have 3+ years of experience as a java developer I specialize in Java application support, database management, 
+	and client technical support.
+
+Recent Company Project Experience:
+
+Application Name: BMC (Book my campus):
+
+In my most recent project, I worked on an existing application called BMC as a developer. 
+	Book my campus it will be two parties include them like organization who will 
+	give a jobs and colleges who will going to student will going to register them 
+	self for the portal that has a type of on-boarding one is organization and one 
+	more will be collages side those has to be on-board to our system after 
+	on-boarding student all they have to register them self for that registering we 
+	need to they need to provide the permission like name and where you are 
+	from all he is information so will once registration completed we will going to 
+	send out authentication for identified the student so once that is done. Then 
+	will going to have a in case organization have a jobs so they will going to 
+	publish that one so that will send a notification to a student so then they have 
+	to take test for clear that so it will be happen at campus itself once that is been 
+	completed so then it will going to next process that kind of activity current 
+	project.
+	And Technology stacks for using here java 8, spring boot(3.0.5), micro services, 
+	and we are using MySQL and where deploying into AWS. And ORM using JPA
+
+My main responsibilities included:
+	============role and responsible=========
+	Role and responsibility here design and development given requirement and 
+	taking care of moving one the issues what I am going to fix from one 
+	environment to another environment and also debug on production issues and 
+	give a solution for that so those are activity I am Done.
+
+  Collaboration: Worked closely with cross functional teams to gather requirements and deliver scalable API solutions.
+
+  Agile Methodologies: Actively participated in agile practices like sprint planning and daily stand ups.
+  
+
+
+2. What is the most challenge which I faced is,
+	=====challaging task==================
+	Basically when we moving to production so when we are identifying issues so 
+	we had preevisly kind of manoletik application we had we tried to moved to 
+	production when we converted so there was a ahh because what we happing 
+	right so there is acceptance header was passing in the request so our 
+	application trying to convert the respective that kind of version like USEN is are 
+	that king of version trying to do so that kind of jsp which has not available in 
+	our application to identifying that one to render the screen so it was a breaking 
+	because regular logs we can see status is 200 but it was failing screen was not 
+	loading failing then we are trying to do multiple analysis but using log still 200 
+	status code then we tried to enable debug logger so once we enable debug 
+	logger so then it tried to spit all the because internal framework will do 
+	conversation of data transferring right so it was during the convention it was 
+	breaking actually so then we got know that we tried to convert respective 
+	format wise, we added a filter with that filter we are basically removing that 
+	format what we are going to first in the since the generic format the content 
+	has to displayed that we setting in the filter and then after that we tried to 
+	able to pic the right UI fail to display in the screen that is the major one what I 
+	faced when we migrating that new component
+
+ 	A) Query 
+	B) Mysql upgradation
+	C) Exception handling like Null pointer
+	D) Duplicate records inserting in table
