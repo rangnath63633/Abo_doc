@@ -1,0 +1,1282 @@
+1. Convert a string as given in the format below:
+
+Example:
+aabbb into a2b3
+aaaa into a4
+a into a1
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class StringLengthEncoding {
+    public static String findStringCount(String input){
+        StringBuilder sb= new StringBuilder();
+        HashMap<Character,Integer> hashMap = new LinkedHashMap<>();
+        for(int i=0;i<input.length();i++){
+            char in=input.charAt(i);
+            if(hashMap.containsKey(in)){
+               int count=hashMap.get(in);
+               hashMap.put(in,++count);
+            }
+            else{
+                hashMap.put(in,1);
+            }
+
+        }
+        for(Map.Entry<Character,Integer> entry: hashMap.entrySet()){
+            sb.append(entry.getKey()).append(entry.getValue());
+        }
+        return sb.toString();
+    }
+    public static void main(String[] args) {
+        String a="aabbb";
+        String b="aaaa";
+        String c="a";
+        System.out.println(findStringCount(a));
+        System.out.println(findStringCount(b));
+        System.out.println(findStringCount(c));
+	System.out.println(findStringLengthEncoding(a));
+    }
+
+public static String findStringLengthEncoding(String str){
+        //aabbbycyyc
+
+        Map<Character, Integer> charCountMap = new LinkedHashMap<>();
+      //  char[] ch = str.toCharArray();
+
+        for (int i = 0; i < str.length(); i++) {
+            char currentChar = str.charAt(i);
+            charCountMap.put(currentChar, charCountMap.getOrDefault(currentChar, 0) + 1);
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<Character, Integer> entry : charCountMap.entrySet()) {
+            result.append(entry.getKey()).append(entry.getValue());
+        }
+
+        return result.toString();
+    }
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+2. Given a dictionary (list of words) and a substring, you have to return the length of the longest word in the dictinary containing the substring.
+
+Example:
+String[] dict = {"CODGE", "ODG", "LODGES", "SODG", "dodge", "mODJ", "LODGESSSS"};
+String toSearch = "ODG";
+
+//Returns 9 (LODGESSSS)
+
+
+public class LongestWordWithSubstring {
+    public static int findPrefixCount(String[] dict, String toSearch){
+       int maxLength=0;
+	String result = "";
+        for(String word: dict){
+            if(word.contains(toSearch)){
+                maxLength=Math.max(maxLength,word.length());
+		result = word;
+            }
+        }
+	System.out.println(result);
+        return maxLength;
+    }
+    public static void main(String[] args) {
+        String[] dict = {"CODGE", "ODG", "LODGES", "SODG", "dodge", "mODJ", "LODGESSSS"};
+        String toSearch = "ODG";
+        System.out.println(findPrefixCount(dict,toSearch));
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+3. Prefix Search
+    Given a document and a prefix, return all the words starting with the prefix.
+
+Example:
+Say the document is a string of words,
+    String[] arr = {"apple", "applet", "bread", "aper"};
+    String prefix = "app";
+
+    // Return apple, applet
+
+public class PrefixSearch {
+    public static String findStringSearch(String[] input,String prefix){
+        StringBuilder sb= new StringBuilder();
+	//List<String> matchingWords = new ArrayList<>();
+        for(String word: input){
+            if(word.contains(prefix)){
+                sb.append(word).append(" ");
+            }
+        }
+	//return matchingWords;
+        return sb.toString();
+    }
+    public static void main(String[] args) {
+        String[] arr = {"apple", "applet", "bread", "aper"};
+        String prefix = "app";
+	/*
+	List<String> results = findWordsWithPrefix(arr, prefix);
+        System.out.println("Words starting with prefix " + prefix + " : " + results);
+	*/
+        System.out.println(findStringSearch(arr,prefix));
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+4. Given a sentence/phrase and two words,
+    return the minimum distance between the words.
+
+Example:
+    String str = “the quick the brown quick brown the frog”
+    String word1 = “quick”
+    String word2 = "frog"
+
+    //Return 2
+
+import java.util.HashMap;
+
+public class MinimumDistanceBetweenWords {
+   public static int minDistance(String str, String word1, String word2) {
+        String[] words = str.split(" ");
+        int lastPosWord1 = -1;
+        int lastPosWord2 = -1;
+        int minDistance = Integer.MAX_VALUE;
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals(word1)) {
+                lastPosWord1 = i;
+                if (lastPosWord2 != -1) {
+                    minDistance = Math.min(minDistance, lastPosWord1 - (lastPosWord2-1));
+                }
+            } else if (words[i].equals(word2)) {
+                lastPosWord2 = i;
+                if (lastPosWord1 != -1) {
+                    minDistance = Math.min(minDistance, (lastPosWord2-1) - lastPosWord1);
+                }
+            }
+        }
+
+        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
+    }
+
+    public static void main(String[] args) {
+        String str = "the quick the brown quick brown the frog";
+        String word1 = "quick";
+        String word2 = "frog";
+       	int distance = minDistance(str, word1, word2);
+        System.out.println("Minimum distance: " + distance);
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+5. Given a string, return the first non-repeating character.
+
+Examples:
+String str1 = "12345"
+    //Return 1
+
+String str2 = "abbacd"
+    //Return c
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class FirstNonRepeatingCharacter {
+    public static String firstNonRepeatingCharacter(String input){
+        HashMap<Character,Integer> hashMap = new HashMap<>();
+        for(char c: input.toCharArray()){
+                hashMap.put(c,hashMap.getOrDefault(c,0)+1);
+        }
+        for(Map.Entry<Character,Integer> map : hashMap.entrySet()){
+            if(map.getValue()==1){
+                return map.getKey().toString();
+            }
+        }
+    return "0";
+    }
+    public static void main(String[] args) {
+        String str1 = "12345";
+        String str2 = "abbacd";
+        System.out.println(firstNonRepeatingCharacter(str1));
+        System.out.println(firstNonRepeatingCharacter(str2));
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+6. Given a sorted rotated array, return the minimum element from it.
+
+Examples:
+    int[] arr1 = {5, 6, 1, 2, 3, 4};    //Return 1
+
+    int[] arr2 = {1, 2, 3, 4};            //Return 1
+
+
+public class MinimumInRotatedSortedArray {
+     public static int findMin(int[] arr){
+
+        int smallestArray = arr[0];
+        for(int i=1; i<arr.length; i++){
+            if(! (smallestArray < arr[i])){
+                smallestArray = arr[i];
+            }
+        }
+        return smallestArray;
+    }
+    public static void main(String[] args) {
+        int[] arr1 = {5, 6, 1, 2, 3, 4};
+        int[] arr2 = {1, 2, 3, 4};
+        System.out.println(findMin(arr1));
+        System.out.println(findMin(arr2));
+
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+7. A staircase with n steps is given. Starting from the base,
+    return the number of ways of reaching the n’th stair.
+
+    [The person can climb either 1 or 2 stairs in one move]. 
+
+public class StairCaseSteps {
+    public static int findStairCaseSteps(int n){
+        int[] steps = new int[n+1];
+        steps[0]=1;
+        steps[1]=1;
+        for(int i=2;i<=n;i++){
+            steps[i] = steps[i-1]+steps[i-2];
+        }
+        return steps[n];
+    }
+    public static void main(String[] args) {
+        int n=5;
+        System.out.println(stairCaseSteps(n));
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+8. Given a list of student names and corresponding marks,
+    return the highest average marks (and print the corresponding student name - optional).
+    The marks can be negative as well and a student may have multiple marks.
+
+Example:
+ String[][] = {{“Charles”, 84},
+                      {“John”, 100},
+                      {“Andy”, 37},
+                      {“John”, 23},
+                      {“Charles”, 20}};
+
+    //Return 61.5 (which is of John's)
+
+import java.util.HashMap;
+
+public class StudentAverage {
+    public static void findAverageStudents(String[][] input){
+        String result="";
+        HashMap<String,Integer> total = new HashMap<>();
+        HashMap<String,Integer> count= new HashMap<>();
+        for(String[] data: input) {
+            String student = data[0];
+            int marks= Integer.parseInt(data[1]);
+            total.put(student,total.getOrDefault(student,0)+marks);
+            count.put(student,count.getOrDefault(student,0)+1);
+        }
+        double highestAverage=Double.NEGATIVE_INFINITY;
+        for(String student: total.keySet()){
+           double average= (double) total.get(student)/count.get(student);
+            if(average>highestAverage){
+                highestAverage = average;
+                result= student;
+            }
+        }
+
+        System.out.printf(String.valueOf(highestAverage));
+        System.out.println(" "+result);
+    }
+    public static void main(String[] args) {
+/*
+	public static void main(String[] args) {
+        List<StudentScore> scores = Arrays.asList(
+            new StudentScore("Charles", 84),
+            new StudentScore("John", 100),
+            new StudentScore("Andy", 67),
+            new StudentScore("John", 22)
+        );
+
+        System.out.println("Maximum average score: " + findMaxAverage(scores));
+    }
+*/
+        String[][] str = {{"Charles","84"},
+            {"John", "100"},
+            {"Andy", "37"},
+            {"John", "23"},
+            {"Charles", "20"}};
+        averageStudents(str);
+    }
+
+public static double findMaxAverage(List<StudentScore> scores) {
+        Map<String, int[]> studentScores = new HashMap<>();
+
+        for (StudentScore score : scores) {
+            String name = score.getName();
+            int mark = score.getScore();
+            if (!studentScores.containsKey(name)) {
+                studentScores.put(name, new int[]{0, 0}); // {totalScore, count}
+            }
+            int[] scoreData = studentScores.get(name);
+            scoreData[0] += mark;
+            scoreData[1] += 1;
+        }
+
+        double maxAverage = Double.MIN_VALUE;
+        for (Map.Entry<String, int[]> entry : studentScores.entrySet()) {
+            int[] scoreData = entry.getValue();
+            double average = (double) scoreData[0] / scoreData[1];
+            if (average > maxAverage) {
+                maxAverage = average;
+            }
+        }
+
+        return maxAverage;
+    }
+
+    static class StudentScore {
+        private String name;
+        private int score;
+
+        public StudentScore(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getScore() {
+            return score;
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+9. Given an array of integers and a sum K,
+    return the length of the shortest sub-array which matches the given sum. If it doesn't exist, return -1.
+    [Even a single integer can be considered as a sum.]
+
+Examples:
+    int[] arr = {2, 4, 6, 10, 2, 1}, K = 12        // Return 2
+
+    int[] arr = {5, 8, 50, 4}, K = 50                // Return 50 (A single integer may be considered as a sum)
+
+public class ShortestSubarrayWithSum {
+    public static void main(String[] args) {
+        int[] arr1 = {2, 4, 6, 10, 2, 1};
+        int K1 = 12;
+        System.out.println("Shortest subarray length: " + shortestSubarray(arr1, K1));
+
+        int[] arr2 = {5, 8, 50, 4};
+        int K2 = 50;
+        System.out.println("Shortest subarray length: " + shortestSubarray(arr2, K2));
+    }
+
+    public static int shortestSubarray(int[] nums, int k){
+	        int j=0, sum = 0, minLength =Integer.MAX_VALUE;
+	        for(int i=0; i<nums.length; i++){
+	            sum += nums[i];
+	
+	            while (sum >= k) {
+	                minLength = Math.min(minLength, i-j+1);
+	                sum  -=nums[j++];
+	            }
+	        }
+	        return minLength == Integer.MAX_VALUE ? -1 : minLength;
+	    }
+	}
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+10. Given a dictionary (list of words) and a word,
+    return an array of strings that can be formed from the given word.
+    [Every letter in the input word can occur only once in the word to be returned].
+
+Examples:
+    String[] dict = {"ab", "abcd", "bcdaf", "bcad", "acb", "acab"};
+    String input = "abcd";
+    // Return {"abcd", "bcad"}
+
+    String[] dict =  {"ab", "abcd", "bcdaf", "bcad", "acaab", "acab"};
+    String input = "caab";
+    // Return {"acab"}
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class Dictionary {
+    public static String[] stringList(String[] input,String input1){
+        List<String> list= new ArrayList<>();
+        HashMap<Character,Integer> hashMap = new HashMap<>();
+        for(char c: input1.toCharArray()){
+            hashMap.put(c,hashMap.getOrDefault(c,0)+1);
+        }
+        for(String word: input){
+            if(canFormWord(word,hashMap)){
+                list.add(word);
+            }
+        }
+        return list.toArray(new String[0]);
+    }
+
+    private static boolean canFormWord(String word,HashMap<Character,Integer> hashMap){
+        HashMap<Character,Integer> hash= new HashMap<>();
+        for(char e: word.toCharArray()){
+            hash.put(e,hash.getOrDefault(e,0)+1);
+        }
+        for(char f:hash.keySet()){
+            if(hash.get(f) > hashMap.getOrDefault(f,0)){
+                return false;
+            }
+        }
+return true;
+    }
+    public static void main(String[] args) {
+        String[] dict = {"ab", "abcd", "bcdaf", "bcad", "acb", "acab"};
+        String input = "abcd";
+        String[] result=stringList(dict,input);
+        System.out.println(String.join(", ",result));
+    }
+
+	/*
+	public static List<String> toFindWordInDict(String[] dict, String input){
+        int num=0;
+
+        List<String > s = new ArrayList<>();
+
+        String sortInput = sortString(input);
+
+        for(int i=0; i<dict.length; i++){
+            if(dict[i].length() == input.length()){
+                String sortWord = sortString(dict[i]);
+
+                if(sortWord.equals(sortInput)){
+                    s.add(dict[i]);
+                }
+            }
+        }
+        return s;
+    }
+
+    private static String sortString(String str){
+        char[] charArray = str.toCharArray();
+        Arrays.sort(charArray);
+        return new String(charArray);
+    }
+
+
+	*/
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+11. Given a sorted array of non-negative integers of size n,
+    return the smallest missing integer.
+
+Examples:
+    int[] arr1 = {1, 2, 3, 4};    // Return 0
+
+    int[] arr2 = {0, 1, 3, 4};    // Return 2
+
+
+public class SmallestInteger {
+    public static int findSmallestInteger(int[] arr) {
+        int n=arr.length;
+        if(n==0|| arr[0]>0){
+            return 0;
+        }
+        for(int i=0;i<n;i++){
+            if(i==arr[i]) {
+                continue;
+            }
+            else {
+                return i;
+            }
+        }
+        return n;
+    }    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4};
+        int[] arr2 = {0, 1, 3, 4};
+        System.out.println(findSmallestInteger(arr1));
+        System.out.println(findSmallestInteger(arr2));
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+12. Check whether a number is a power of 10.
+
+
+public class PowerOfTen {
+    public static boolean isPowerOfTen(int n) {
+        if (n <= 0) {
+            return false;
+        }
+        while (n % 10 == 0) {
+            n /= 10;
+        }
+        return n == 1;
+    }
+
+    public static void main(String[] args) {
+        int num1 = 1000;  
+        int num2 = 50;    
+        int num3 = 1;     
+        int num4 = 10;    
+        System.out.println(num1 + " is a power of 10: " + isPowerOfTen(num1));
+        System.out.println(num2 + " is a power of 10: " + isPowerOfTen(num2));
+        System.out.println(num3 + " is a power of 10: " + isPowerOfTen(num3));
+        System.out.println(num4 + " is a power of 10: " + isPowerOfTen(num4));
+    }
+/*
+    public static boolean isPowerOfTen(int num){
+        if(num <= 0){
+            return false;
+        }
+        double logValue = Math.log10(num);
+        return logValue == (int) logValue;
+    }
+*/
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+13. Given a string,
+    return the starting index & length of the longest substring containing the same character.
+
+Example:
+    String[] str = "aabbbbCCddd";    // Return 2 (index) and substring "bbbb"
+
+
+import java.util.HashMap;
+
+public class LongestSubString {
+    public static void findLongestSubStringIndex(String str){
+        Map<Character, Integer> map = new HashMap<>();
+        for(int i=0; i<str.length(); i++){
+            map.put(str.charAt(i), map.getOrDefault(str.charAt(i), 0)+1);
+        }
+        int max =0;
+        char c = 0;
+        for(Map.Entry<Character,Integer> m : map.entrySet()){
+            if(m.getValue() > max){
+                max = m.getValue();
+                c = m.getKey();
+            }
+        }
+        int index = str.indexOf(c);
+        String res = str.substring(index, index+max);
+        System.out.println(index+", "+res);
+    }
+    public static void main(String[] args){
+        String str="abbcabcbb";
+        findLongestSubStringIndex(str);
+
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+14. Given an array of integers (positive and negative),
+    return length of the loop, if it exists. Else return -1.
+    [ Rules for the movement - Index to move to,
+        for +ve numbers - (i + arr[i])%n
+        for -ve numbers - (i - arr[i])%n ]
+
+Example:
+    int[] arr = {2, -1, 1, 2, 2}    
+    // Returns 3  [There is a loop in this array because 0 moves to 2, 2 moves to 3, and 3 moves to 0.]
+
+
+import java.util.HashSet;
+
+public class LoopInArray {
+    public static int findLoopLength(int[] arr) {
+        int n = arr.length;
+        HashSet<Integer> visited = new HashSet<>();
+        int currentIndex = 0;
+
+        while (true) {
+            if (currentIndex < 0 || currentIndex >= n) {
+                return -1; 
+            }
+
+            if (visited.contains(currentIndex)) {
+                int loopLength = 1;
+                int loopIndex = currentIndex;
+                int nextIndex = (loopIndex + arr[loopIndex]) % n;
+
+                while (nextIndex != loopIndex) {
+                    loopLength++;
+                    nextIndex = (nextIndex + arr[nextIndex]) % n;
+                }
+                return loopLength;
+            }
+
+            visited.add(currentIndex);
+            currentIndex = (currentIndex + arr[currentIndex]) % n;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, -1, 1, 2, 2};
+        int result = findLoopLength(arr);
+
+        if (result != -1) {
+            System.out.println("Length of the loop: " + result);
+        } else {
+            System.out.println("No loop exists.");
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+15. Given an array of integers,
+    sort it in a wave form.
+    [ The order of elements in a wave form:
+       arr[0] >= arr[1] <= arr[2] >= arr[3] <= arr[4] >= ….. ]
+
+Example:
+    int[] arr = {10, 5, 6, 3, 2, 20, 100, 80};
+    Answer : arr[] = {10, 5, 6, 2, 20, 3, 100, 80} OR {20, 5, 10, 2, 80, 6, 100, 3}
+
+
+import java.util.Arrays;
+
+public class WaveSort {
+
+    public static void waveSort(int[] arr) {
+        Arrays.sort(arr);
+
+        for (int i = 0; i < arr.length - 1; i += 2) {
+            int temp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = temp;
+        }
+    }
+    public static void main(String[] args) {
+        int[] arr = {10, 5, 6, 3, 2, 20, 100, 80};
+
+        System.out.println("Original Array: " + Arrays.toString(arr));
+        
+        waveSort(arr);
+        
+        System.out.println("Wave Sorted Array: " + Arrays.toString(arr));
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+16. Given a matrix of size m * n,
+    return the maximum path sum in the matrix.
+    [You start from the top-left corner of the matrix and may up, down and diagonally].
+
+Example:
+    Matrix      10 10  2  0 20  4
+                       1  0  0 30  2  5
+                       0 10  4  0  2  0
+                       1  0  2 20  0  4
+    
+    // Return 74 [The maximum sum path is 20-30-4-20]
+
+
+public class MaxPathSum {
+    
+    public static int maxPathSum(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int[][] dp = new int[m][n];
+
+        dp[0][0] = matrix[0][0];
+
+        for (int j = 1; j < n; j++) {
+            dp[0][j] = dp[0][j - 1] + matrix[0][j];
+        }
+
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = dp[i - 1][0] + matrix[i][0];
+        }
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = matrix[i][j] + Math.max(dp[i - 1][j], Math.max(dp[i][j - 1], dp[i - 1][j - 1]));
+            }
+        }
+
+        return dp[m - 1][n - 1];
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {10, 10, 2, 0, 20, 4},
+            {1, 0, 0, 30, 2, 5},
+            {0, 10, 4, 0, 2, 0},
+            {1, 0, 2, 20, 0, 4}
+        };
+
+        int result = maxPathSum(matrix);
+        System.out.println("Maximum Path Sum: " + result); // Should return 74
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+17. We are given a chess board and a piece with a fixed position (immoveable). We also have a bishop on the board which, well of course, can only move diagonally.
+    - Return "YES" if we can reach the immoveable piece using the bishop, else return "NO".
+    - If "YES", return the number of minimum steps it takes for the bishop to reach the immoveable piece.
+
+
+public class BishopReach {
+
+    public static String canReachBishop(int bishopRow, int bishopCol, int pieceRow, int pieceCol) {
+        if (bishopRow == pieceRow && bishopCol == pieceCol) {
+            return "YES, 0";
+        }
+        if ((bishopRow + bishopCol) % 2 != (pieceRow + pieceCol) % 2) {
+            return "NO"; 
+        }
+
+        if (Math.abs(bishopRow - pieceRow) == Math.abs(bishopCol - pieceCol)) {
+            return "YES, 1"; 
+        }
+
+        return "YES, 2"; 
+    }
+
+    public static void main(String[] args) {
+        System.out.println(canReachBishop(1, 1, 3, 3)); // Output: "YES, 1"
+        System.out.println(canReachBishop(1, 1, 2, 2)); // Output: "YES, 1"
+        System.out.println(canReachBishop(1, 1, 4, 4)); // Output: "YES, 2"
+        System.out.println(canReachBishop(1, 1, 2, 3)); // Output: "NO"
+        System.out.println(canReachBishop(1, 1, 1, 1)); // Output: "YES, 0"
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+18. Second Smallest in Array
+
+public class SecondSmallest {
+    public static void main(String[] args) {
+        int[] array = {12, 3, 5, 7, 19, 3};
+        int secondSmallest = findSecondSmallestInArray(array);
+
+        if (secondSmallest != Integer.MAX_VALUE) {
+            System.out.println("The second smallest element is: " + secondSmallest);
+        } else {
+            System.out.println("There is no second smallest element.");
+        }
+    }
+
+public static int findSecondSmallestInArray(int[] arr){
+        int smallestNum = Integer.MAX_VALUE;
+        int secondSmallest = Integer.MAX_VALUE;
+        for(int i=0; i<arr.length; i++){
+            if(arr[i] < smallestNum){
+                secondSmallest = smallestNum;
+                smallestNum = arr[i];
+            } else if (arr[i] < secondSmallest) {
+                secondSmallest = arr[i];
+            }
+        }
+        return secondSmallest;
+    }
+/*
+    public static int findSecondSmallestInArray2(int[] arr){
+
+        return Arrays.stream(arr).sorted().boxed().skip(arr.length-3).findFirst().get();
+    }
+*/
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+19. Find the missing integer in an array.
+
+public class MissingInteger {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 4, 5, 6}; 
+        int missingNumber = findMissingNumber(array);
+        System.out.println("The missing integer is: " + missingNumber);
+    }
+
+    public static int findMissingNumber(int[] array) {      
+ 	int actualSum = 0;        
+	int expectedSum = n * (n + 1) / 2;
+	int n=array.length+1;
+        for (int num : array) {
+            actualSum += num;
+        }
+        return expectedSum - actualSum;
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+20. Valid Paranthesis in java program
+
+public class ValidParanthesis {
+    public static boolean isValidParanthesis(String input){
+        int balance=0;
+        for(char c: input.toCharArray()){
+            if(c=='('){
+                balance++;
+            } else if (c==')') {
+                balance--;
+            }
+            if(balance<0){
+                return false;
+            }
+        }
+        return balance==0;
+    }
+    public static void main(String[] args) {
+        String a="(()())";
+        boolean isValid=isValidParanthesis(a);
+        System.out.println(isValid);
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+
+21. Median of two sorted Arrays
+
+import java.util.Arrays;
+
+public class medianTwoSortedArray {
+public static int findMedian(int[] num1,int[] num2){
+    int median=0;
+    int num3[]=new int[num1.length+num2.length];
+    int index=0;
+    for(int i=0;i<num1.length;i++){
+        num3[index]=num1[i];
+        index++;
+    }
+    while(index<num3.length){
+        for(int j=0;j<num2.length;j++){
+            num3[index]=num2[j];
+            index++;
+        }
+    }
+    Arrays.sort(num3);
+    int n=num3.length/2;
+    int n1=num3.length;
+
+    if(num3.length%2!=0){
+        median=num3[n];
+    }
+    else{
+        median = (num3[n]+n1)/2;
+    }
+
+    return median;
+}
+    public static void main(String[] args) {
+
+        int nums1[] = {2, 3, 5, 8};
+        int nums2[] = {10, 12, 14, 16, 18, 20};
+        System.out.println(findMedian(nums1,nums2));
+    }
+/*
+	public static int findMedianSortedArrays(int[] arr1, int[] arr2) {
+        int[] mergedArray = mergeArrays(arr1, arr2);
+
+        return findMedian(mergedArray);
+    }
+
+    private static int[] mergeArrays(int[] arr1, int[] arr2) {
+        int n1 = arr1.length;
+        int n2 = arr2.length;
+        int[] merged = new int[n1 + n2];
+
+        int i = 0, j = 0, k = 0;
+
+        // Merge the arrays
+        while (i < n1 && j < n2) {
+            if (arr1[i] < arr2[j]) {
+                merged[k++] = arr1[i++];
+            } else {
+                merged[k++] = arr2[j++];
+            }
+        }
+        while (i < n1) {
+            merged[k++] = arr1[i++];
+        }
+        while (j < n2) {
+            merged[k++] = arr2[j++];
+        }
+
+        return merged;
+    }
+
+    private static int findMedian(int[] merged) {
+        int n = merged.length;
+
+        if (n % 2 == 1) {
+            return merged[n / 2];
+        } else {
+            return (merged[n / 2 - 1] + merged[n / 2]) / 2;
+        }
+    }
+*/
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+22. A group of students are sitting in a circle. The teacher is electing a new class president. The teacher does this by singing a song while walking around the circle. After the song is finished the student at which the teacher stopped is removed from the circle. Starting at the student next to the one that was just removed, the teacher resumes singing and walking around the circle. After the teacher is done singing, the next student is removed. The teacher repeats this until one student is left.
+A song of length k will result in the teacher walking past k students on each round. The students are numbered 1 to n. The teacher starts at student 1.
+For example, suppose the song length is two(k=2). And there are four students to start with (1,2,3,4). The first student to go would be '2', after that '4', and after that '3’. Student '1' would be the next president in this example.
+    n - the number of students sitting in a circle
+    k - the length (in students) of each song.
+return the number of the student that is elected.
+
+public class Solution {
+ 
+    public static void main(String[] args) {
+        int n = 4; // number of students
+        int k = 2; // length of the song
+        int electedStudent = findPresident(n, k);
+        System.out.println("The elected student is: " + electedStudent);
+    }
+ 
+    public static int findPresident(int n, int k) {
+        List<Integer> students = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            students.add(i);
+        }
+ 
+        int currentIndex = 0; //2
+ 
+        while (students.size() > 1) {
+            currentIndex = (currentIndex + k - 1) % students.size(); //3%2=1
+            students.remove(currentIndex); 1
+        }
+ 
+        return students.get(0);
+    }
+}
+ 
+ ----------------------------------------------------------------------------------------------------------------------------------------
+23 .Given a robot which can only move U,D,L,R. Given String consisting to move. Output should be in array
+
+Input:- “UDDLLRRU”;
+
+Out:-  [0, 0] .
+
+public class Movement {
+    public static void main(String[] args) {
+        String moves = "UDDLLRRU";
+        int[] finalPosition = calculateFinalPosition(moves);
+        System.out.println(Arrays.toString(finalPosition));
+    }
+
+    public static int[] calculateFinalPosition(String moves) {
+        int[] position = {0, 0}; 
+        
+        for (char move : moves.toCharArray()) {
+            switch (move) {
+                case 'U':
+                    position[1]++; 
+                case 'D':
+                    position[1]--; 
+                    break;
+                case 'L':
+                    position[0]--; 
+                case 'R':
+                    position[0]++; 
+                    break;
+                default:
+                   
+                    break;
+            }
+        }
+        
+        return position;
+    }
+}
+ ---------------------------------------------------------------------------------------------------------------------------------------
+24Q. To find the most frequent IP address in a given vector.
+
+public class MostFrequentIPAddress {
+    public static void main(String[] args) {
+        Vector<String> ipAddresses = new Vector<>();
+        ipAddresses.add("192.168.1.1");
+        ipAddresses.add("192.168.1.1");
+        ipAddresses.add("192.168.1.2");
+        ipAddresses.add("192.168.1.3");
+        ipAddresses.add("192.168.1.2");
+        ipAddresses.add("192.168.1.1");
+
+        String mostFrequentIP = findMostFrequentIPAddress(ipAddresses);
+        System.out.println("Most frequent IP address: " + mostFrequentIP);
+    }
+
+     public static String findMostFrequentIPAddress(Vector<String> ipAddress){
+        Map<String, Integer> mostIpAddress = new HashMap<>();
+
+        for (String s : ipAddress){
+//            String[] re = s.split(" ");
+//            mostIpAddress.put(re[0],mostIpAddress.getOrDefault(re[0],0)+1);
+            mostIpAddress.put(s,mostIpAddress.getOrDefault(s,0)+1);
+        }
+        String mostFrequentIpAdd = "";
+        int mostCount = 0;
+        for(Map.Entry<String,Integer> entry : mostIpAddress.entrySet()){
+            if(entry.getValue() > mostCount){
+                mostFrequentIpAdd = entry.getKey();
+                mostCount = entry.getValue();
+            }
+        }
+        return mostFrequentIpAdd;
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------- 25Q.         
+[ 0, 0]
+UUU       [0, 3]
+LLL       [-3, 0]
+RRR        [ 3, 0]
+DDD         [ 0, -3]
+
+URL           0, 1
+              1,1
+              0,1        
+Given a string with the input value
+
+URLD  
+------
+public class Direction {
+    public static void main(String[] args) {
+        int[] result = findFinalCoordinates("UUU");
+        System.out.println("(" + result[0] + "," + result[1] + ")"); // (0, 3)
+
+        int[] result1 = findFinalCoordinates("URRDDL");
+        System.out.println("(" + result1[0] + "," + result1[1] + ")"); // (1, -1)
+
+        int[] result2 = findFinalCoordinates("DOWN UP 2xRIGHT DOWN 3xLEFT");
+        System.out.println("(" + result2[0] + "," + result2[1] + ")"); // (-1, -1)
+    }
+
+    public static int[] findFinalCoordinates(String directions) {
+        String[] commands = directions.split(" ");
+        System.out.println(commands.length);
+            if(commands.length == 1) {
+                commands = directions.split("");
+            }
+            int x = 0, y=0;
+            for (String command : commands) {
+                if (command.contains("x")) {
+                    String[] parts = command.split("x");
+                    int multiplier = Integer.parseInt(parts[0]);
+                    String direction = parts[1].toUpperCase();
+
+                    for (int i = 0; i < multiplier; i++) {
+                        switch (direction) {
+                            case "UP":
+                                y++;
+                                break;
+                            case "DOWN":
+                                y--;
+                                break;
+                            case "LEFT":
+                                x--;
+                                break;
+                            case "RIGHT":
+                                x++;
+                                break;
+                        }
+                    }
+                } else {
+                    switch (command) {
+                        case "U":
+                            y++;
+                            break;
+                        case "D":
+                            y--;
+                            break;
+                        case "L":
+                            x--;
+                            break;
+                        case "R":
+                            x++;
+                            break;
+                        case "UP":
+                            y++;
+                            break;
+                        case "DOWN":
+                            y--;
+                            break;
+                        case "LEFT":
+                            x--;
+                            break;
+                        case "RIGHT":
+                            x++;
+                            break;
+                    }
+                }
+            }
+
+            return new int[]{x, y};
+        }
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------
+26Q. Reverse Vowels in a String. 
+
+=================================
+public class ReverseVowels {
+    public static void main(String[] args) {
+        String input = "Hello, World!";
+        String reversed = reverseVowels(input);
+        System.out.println(reversed);
+    }
+
+    public static String reverseVowels(String s) {
+
+        char[] chars = s.toCharArray();
+
+        int i = 0, j = chars.length - 1;
+
+        String vowels = "aeiouAEIOU";
+
+        while (i < j) {
+		
+            while (i < j && !vowels.contains(chars[i] + "")) {
+                i++;
+            }
+            while (i < j && !vowels.contains(chars[j] + "")) {
+                j--;
+            }
+			
+            char temp = chars[i];
+            chars[i] = chars[j];
+            chars[j] = temp;
+
+            i++;
+            j--;
+        }
+
+        return new String(chars);
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------
+
+27Q. Find pivot in an array. 
+==============================
+
+public class FindPivot {
+
+    public static int findPivot(int[] nums) {
+        int totalSum = 0;
+        for (int num : nums) {
+            totalSum += num;
+        }
+
+        int leftSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int rightSum = totalSum - leftSum - nums[i];
+            if (leftSum == rightSum) {
+                return i;
+            }
+            leftSum += nums[i];
+        }
+
+        return -1; // Return -1 if no pivot index is found
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 7, 3, 6, 5, 6};
+        int pivotIndex = findPivot(nums);
+        System.out.println("Pivot Index: " + pivotIndex); // Expected output: 3
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------
+28Q. Given a forest(one or more disconnected trees ), find the root of the largest tree
+i/p: child -> parent relationship. The key is the child and value is the corresponding tree.  
+{{1 -> 2}, {3->4}}
+o/p:
+2(since 2 is less than 4)
+================================
+
+public class LargestTreeInForest {
+
+    private static int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int count = 1;
+        for (TreeNode child : root.children) {
+            count += countNodes(child);
+        }
+        return count;
+    }
+
+    public static int findRootOfLargestTree(Map<Integer, Integer> childToParent) {
+        Map<Integer, TreeNode> nodes = new HashMap<>();
+        for (Map.Entry<Integer, Integer> entry : childToParent.entrySet()) {
+            nodes.putIfAbsent(entry.getKey(), new TreeNode(entry.getKey()));
+            nodes.putIfAbsent(entry.getValue(), new TreeNode(entry.getValue()));
+            nodes.get(entry.getValue()).children.add(nodes.get(entry.getKey()));
+        }
+
+        Set<Integer> children = new HashSet<>(childToParent.keySet());
+        Set<Integer> allNodes = new HashSet<>(childToParent.values());
+        allNodes.addAll(children);
+        allNodes.removeAll(children); // After this, allNodes contains only root nodes
+
+        TreeNode largestRoot = null;
+        int maxNodes = 0;
+
+        for (int rootId : allNodes) {
+            TreeNode root = nodes.get(rootId);
+            int nodeCount = countNodes(root);
+            if (nodeCount > maxNodes || (nodeCount == maxNodes && (largestRoot == null || root.id < largestRoot.id))) {
+                maxNodes = nodeCount;
+                largestRoot = root;
+            }
+        }
+
+        return largestRoot.id;
+    }
+
+    public static void main(String[] args) {
+        Map<Integer, Integer> childToParent = new HashMap<>();
+        childToParent.put(1, 2);
+        childToParent.put(3, 4);
+
+        int rootOfLargestTree = findRootOfLargestTree(childToParent);
+        System.out.println(rootOfLargestTree); // Expected output: 2
+    }
+}
+
+class TreeNode {
+    int id;
+    List<TreeNode> children;
+
+    TreeNode(int id) {
+        this.id = id;
+        this.children = new ArrayList<>();
+    }
+}
+
+
