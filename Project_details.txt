@@ -12,8 +12,7 @@ As a student,
 I want to register on the Book My Campus (BMC) portal,
 so that I can receive job notifications from organizations and apply for relevant positions.
 
-Explanation of the Project
-
+Explanation of the Project :-
 In my most recent project, I worked as a developer on an application called Book My Campus (BMC). This platform serves as a bridge between organizations offering jobs and colleges that register students. The main goal of BMC is to streamline the onboarding process for both organizations and colleges and to facilitate job opportunities for students.
 
 Key Components:
@@ -22,12 +21,12 @@ User Roles:
 Organizations: Companies looking to hire students. They can publish job openings and notify students.
 Colleges: Educational institutions that onboard their students to the BMC platform.
 Students: Individuals who register on the platform to receive job notifications and apply for positions.
-Onboarding Process:
 
+Onboarding Process:
 Organizations and Colleges must complete an onboarding process to join the system. This ensures that only verified entities can publish job offers or register students.
 After onboarding, colleges will allow their students to register on the portal.
-Student Registration:
 
+Student Registration:
 During registration, students provide essential information, such as their name, location, and educational background.
 Once registration is complete, students receive authentication to confirm their identity and access the platform.
 Job Notifications:
@@ -40,22 +39,14 @@ Students must take tests organized on their respective campuses as part of the j
 Technology Stack:
 
 Java 8: Used as the primary programming language for backend development.
-Spring Boot (3.0.5): Utilized for building microservices, making it easy to develop and deploy standalone applications.
-Microservices Architecture: The application is structured as microservices, allowing for independent development, deployment, and scaling of different components.
-MySQL: Used as the relational database to store user data, job postings, and application records.
-AWS: The application is deployed on Amazon Web Services for scalability and reliability.
+Spring Boot (3.0.5), Microservices Architecture,MySQL, AWS,
 JPA (Java Persistence API): Used for object-relational mapping (ORM) to simplify database interactions.
-Key Responsibilities
+
+Key Responsibilities:-
 Implementing features for student registration and onboarding processes.
 Developing notification mechanisms to inform students of new job postings.
 Collaborating with the team to ensure the application follows best practices in microservices design and development.
 
-My main responsibilities included:
-	============role and responsible=========
-	Role and responsibility here design and development given requirement and 
-	taking care of moving one the issues what I am going to fix from one 
-	environment to another environment and also debug on production issues and 
-	give a solution for that so those are activity I am Done.
 
   Collaboration: Worked closely with cross functional teams to gather requirements and deliver scalable API solutions.
 
@@ -63,6 +54,27 @@ My main responsibilities included:
   
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================================================================================================================================
 2. What is the most challenge which I faced is,
 	=====challaging task==================
 	Basically when we moving to production so when we are identifying issues so 
