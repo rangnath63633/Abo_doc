@@ -7,6 +7,9 @@
 Recent Company Project Experience:
 
 Application Name: BMC (Book my campus):
+client : 9 to 6 solution , 
+business offer product on a sas model,
+product this was portal for university to share knowladge on compus also manage in how job portal for student.
 
 As a student,
 I want to register on the Book My Campus (BMC) portal,
