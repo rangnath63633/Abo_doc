@@ -111,3 +111,40 @@ Hint: Use GROUP BY with HAVING.
 
 Select d.department_id, d.department_name, AVG(e.salary) AS average_salary FROM departments d join employees e ON d.department_id = e.department_id
 group by d.department_id, d.department_name having COUNT(e.employee_id) > 5;
+
+16. String Manipulation
+Concatenate employees' first and last names into a single full name, separated by a space.
+Hint: Use CONCAT()
+
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;
+
+17. Update Query with Multiple Conditions
+Set all employees with salaries above $8000 and belonging to the 'IT' department to a new salary of $8500.
+Hint: Use UPDATE with WHERE .
+
+UPDATE employees SET salary = 8500 WHERE salary > 8000 AND department = 'IT';
+
+18. Nested Queries
+Find the employee with the highest salary who works in the 'HR' department.
+Hint: Use a subquery with MAX() .
+
+SELECT * FROM employees WHERE salary = (SELECT MAX(salary) FROM employeesWHERE department = 'HR');
+    
+19. Date Calculation
+Find employees who have been assigned to projects that will end within the next 2 months.
+Hint: Use CURDATE() and DATE_ADD() .
+
+SELECT * FROM employees
+WHERE project_end_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 2 MONTH);
+
+20. Join and Aggregation with SUM and HAVING
+For each project, show the total salary billed based on the hours worked by employees, but only for projects where total billing exceeds
+$10,000.
+Hint: Use JOIN , SUM , and HAVING 
+
+SELECT p.project_id, p.project_name, SUM(e.salary * wh.hours_worked) AS total_billing
+FROM projects p
+JOIN work_hours wh ON p.project_id = wh.project_id
+JOIN employees e ON wh.employee_id = e.employee_id
+GROUP BY p.project_id, p.project_name
+HAVING total_billing > 10000;
