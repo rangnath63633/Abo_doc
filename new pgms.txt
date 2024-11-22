@@ -1,0 +1,131 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class SortLastDigitInNum {
+    public static void main(String[] args) {
+        int[] num = {23,21,30,42};
+        Integer[] numObj = Arrays.stream(num).boxed().toArray(Integer[]::new);
+        Arrays.sort(numObj, Comparator.comparingInt(a -> a % 10));
+        num = Arrays.stream(numObj).mapToInt(Integer::intValue).toArray();
+
+//        for(int i=0; i<num.length-1; i++){
+//            for(int j=0; j<num.length-1-i; j++) {
+//                if (num[j] % 10 > num[j+1] % 10) {
+//                    int temp = num[j];
+//                    num[j] = num[j+1];
+//                    num[j+1] = temp;
+//                }
+//            }
+//        }
+        for(int i:num)
+            System.out.print(i+" ");
+    }
+}
+
+
+
+--------------------------------------------------------------------
+
+import java.util.HashSet;
+
+public class TwoSumMatch {
+    public static void main(String[] args) {
+	
+        int[] arr={1,2,4,5,6,8,10};
+        for(int i=0; i<arr.length; i++){
+            findTwoSumMatch(arr, arr[i]);
+        }
+    }
+    public static void findTwoSumMatch(int[] arr, int target){
+        HashSet<Integer> set = new HashSet<>();
+        for(int n:arr){
+            int sum = target-n;
+            if(set.contains(sum)){
+                System.out.println("Target :"+target+"("+sum+","+n+")");
+            }
+            set.add(n);
+        }
+
+    }
+}
+
+
+----------------------------------------------------------------
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class Example4 {
+//    Input:
+//    String str="RanganathaBR";
+//    Output:
+//    g, t, h, B
+
+    public static void main(String[] args) {
+        String str = "RanganathaBR";
+        Map<Character,Integer> map = new HashMap<>();
+        for(int i=0; i<str.length();i++){
+            Character c = str.charAt(i);
+            Integer val = map.get(c);
+            val = (val != null) ? val+1 : 1;
+            map.put(c,val);
+        }
+
+        Set<Map.Entry<Character, Integer>> ss  =map.entrySet();
+        for(Map.Entry<Character, Integer> ent: ss) {
+            if(ent.getValue() ==1)
+                System.out.println(ent.getKey());
+        }
+
+    }
+}
+
+------------------------------------------------------------------
+
+import java.util.Stack;
+
+public class BracketValidator {
+    public static boolean isBalanced(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            }
+            else if (c == ')' || c == '}' || c == ']') {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                char top = stack.pop();
+                if (!isMatchingPair(top, c)) {
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    public static boolean isMatchingPair(char open, char close) {
+        return (open == '(' && close == ')') ||
+                (open == '{' && close == '}') ||
+                (open == '[' && close == ']');
+    }
+
+    public static void main(String[] args) {
+        String test1 = "{[()]}";
+        String test2 = "{[(])}";
+        String test3 = "{[(";
+        String test4 = "[]{}()";
+        String test5 = "()";
+
+        System.out.println("Test 1: " + isBalanced(test1));
+        System.out.println("Test 2: " + isBalanced(test2));
+        System.out.println("Test 3: " + isBalanced(test3));
+        System.out.println("Test 4: " + isBalanced(test4));
+        System.out.println("Test 5: " + isBalanced(test5));
+    }
+}
+
